@@ -1,25 +1,9 @@
-# GXBridge — GX Works3 + PLC bridge for AI agents
+# GXBridge — GX Works3 + PLC for AI agents
 
 **GXBridge turns Mitsubishi GX Works3 and a connected PLC into something you can simply talk to.**
-It's a production-quality Model Context Protocol (MCP) server, so Claude — or any AI agent that
-speaks MCP — can open projects, write and build logic, download to the PLC, run/stop it, and
-read, write, and monitor live device values, all from plain natural language.
-
-All Mitsubishi COM access is isolated inside a reusable bridge library; the MCP server itself is a
-thin, COM-free layer on top of it.
-
-```
-  Claude / Cursor / Cline / any MCP agent
-        │  MCP (stdio or Streamable HTTP)
-        ▼
-  GXBridge MCP Server      ── exposes 46 tools; no COM here
-        │  in-proc calls
-        ▼
-  GXBridge bridge library  ── all COM isolated here
-        │  COM / interop
-        ▼
-  GX Works3 Open I/F  +  MX Component  →  PLC (e.g. FX5U)
-```
+It's a Model Context Protocol (MCP) server, so Claude — or any AI agent that speaks MCP — can open
+projects, write and build logic, download to the PLC, run/stop it, and read, write, and monitor live
+device values, all from plain natural language.
 
 ## What you can do — just by asking
 
@@ -46,18 +30,15 @@ thin, COM-free layer on top of it.
 | PLCopen XML | Export / import, including graphical layout |
 | Download / run | Get download files, download, upload, run, stop |
 | Communication | Online status, live monitoring, simulator control |
-| Devices (MX Component) | Status, read / write / monitor live device values |
+| Devices | Status, read / write / monitor live device values |
 
 Destructive operations — download, run/stop, delete, overwrite — require an explicit confirmation
 before they execute.
 
-## Remote engineering over SSH
+## Remote engineering
 
-GX Works3 only runs on Windows. GXBridge supports driving it from any Mac, Linux, or other Windows
-machine over SSH: one host process on the Windows PC owns the GX Works3 engine and its visible
-window, while every connected agent — local or remote — shares that single engine instead of
-spawning its own. No open ports, no token; SSH does the authenticating. A Streamable HTTP mode with
-bearer-token auth is also available for network deployments.
+GX Works3 only runs on Windows. GXBridge lets you work with it from a Mac, Linux, or another Windows
+machine as well.
 
 ## Every programming mode
 
